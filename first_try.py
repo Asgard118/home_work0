@@ -83,13 +83,20 @@ class Reviewer(Mentor):
 Имя: {self.name} 
 Фамилия: {self.surname}
                 """
-    
-# def student_midle_rate(student_list, course):
-#     for i in student_list:
-#         for a in i.courses_in_progress:
-#             if a == course:
-#                 print(i.grades)
-
+        
+def student_midle_rate(student_list, course):
+    total_grades = []
+    count = 0
+    for student in student_list:
+        if course in student.courses_in_progress and course in student.grades:
+            grades = student.grades[course]
+            total_grades.extend(grades)
+            count += len(grades)
+    if count > 0:
+        average_grade = sum(total_grades) / count
+        return round(average_grade, 1)
+    else:
+        return 'Нет оценок для данного курса'
 
 eren = Student('Eren', 'Eger', 'male')
 armin = Student('Armin', 'Alert', 'male')
@@ -124,16 +131,16 @@ grisha.rate_hw(armin, 'SQL', 9)
 grisha.rate_hw(mikasa, 'C++', 8) 
 grisha.rate_hw(mikasa, 'C#', 6) 
 
-print(grisha)
-print(erwin)
-print(eren)
-eren > mikasa
-hanji > erwin
+# print(grisha)
+# print(erwin)
+# print(eren)
+# eren > mikasa
+# hanji > erwin
 
-# students_list = [eren, mikasa, armin]
+students_list = [eren, mikasa, armin]
 
-# student_midle_rate(students_list, 'Python')
-
+middle = student_midle_rate(students_list, 'Python')
+print(middle)
 
 
     
